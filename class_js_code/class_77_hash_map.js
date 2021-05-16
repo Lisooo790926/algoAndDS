@@ -25,19 +25,43 @@ class HashTable {
     _hash(key) {
         let hash = 0;
         for (let i = 0; i < key.length; i++) {
-            hash = (hash + key.charCodeAt(i) * i)
-            this.data.length;
+            hash = (hash + key.charCodeAt(i) * i) % this.data.length;
         }
         return hash;
     }
 
     get(key) {
         
+        const hashKey = this._hash(key)
+        
+        if(hashKey && this.data[hashKey]) {
+            let valueAry = this.data[hashKey];
+            for(let value of valueAry) {
+                let strAry = value.split("_")
+                if(key == strAry[0]) {
+                    return strAry[1]
+                }
+            }
+        }
+        console.log("no key and value")
+        return null
     }
 
     set(key, value) {
+        const hashKey = this._hash(key)
+        
+        console.log(hashKey);
+        if(!this.data[hashKey]){
+            this.data[hashKey] = new Array();
+        }
+        this.data[hashKey].push(key + "_" + value);
 
+        console.log("save ok in key", key + "_" + value)
     }
 
-
 }
+
+
+let hashTable = new HashTable(10);
+hashTable.set("key", 2);
+console.log(hashTable.get("key"))
