@@ -1,0 +1,25 @@
+{
+  "name": "algo_and_ds",
+  "version": "1.0.0",
+  "description": "algo ds project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lisooo790926/algoAndDS.git"
+  },
+  "author": "Evis Chang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lisooo790926/algoAndDS/issues"
+  },
+  "homepage": "https://github.com/Lisooo790926/algoAndDS#readme",
+  "devDependencies": {
+    "@types/node": "^15.12.1"
+  },
+  "dependencies": {
+    "ts-node": "^10.0.0"
+  }
+}
