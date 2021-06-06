@@ -101,8 +101,8 @@ class HashTable_class {
         console.log(this.data)
     }
 
-    // O(1) when no coliation
-    // O(n) when no good hash function, or no enough memory size (with coliation)
+    // O(1) when no Collision
+    // O(n) when no good hash function, or no enough memory size (with Collision)
     get(key) {
         let address = this._hash(key);
         const currentBucket = this.data[address]
@@ -125,7 +125,7 @@ class HashTable_class {
         for(let i =0;i<this.data.length;i++) {
             console.log(this.data[i])
             if(this.data[i]) {
-                // when coliation happen
+                // when Collision happen
                 for(let [key, value] of this.data[i]){
                     keys.push(key[0])
                 }
@@ -137,7 +137,7 @@ class HashTable_class {
 }
 
 const myHashTable = new HashTable_class(2)
-// coliation happen
+// Collision happen
 myHashTable.set("grape", 10000)
 myHashTable.set("apple", 2)
 
