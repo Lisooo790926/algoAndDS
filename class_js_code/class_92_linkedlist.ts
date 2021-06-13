@@ -37,7 +37,8 @@ export class LinkedList {
 
     // O(1) 
     append(value: number) {
-        const newNode = new SingleNode(value, this.tail)
+        const newNode = new SingleNode(value, null)
+        this.tail.next = newNode;
         this.tail = newNode;
         this.length++;
     }
@@ -67,15 +68,15 @@ export class LinkedList {
         }
 
         // avoid unnecessary looping 
-        if (index === (this.length - 1)) {
+        if (index === this.length) {
             this.append(value);
         } else if (index === 0) {
             this.prepend(value);
         } else {
-            let currentNode = this.traverseToIndex(index)
+            let preNode = this.traverseToIndex(index - 1)
 
-            if (utils.isNotNull(currentNode, currentNode.next)) {
-                currentNode.next = new SingleNode(value, currentNode.next);
+            if (utils.isNotNull(preNode, preNode.next)) {
+                preNode.next = new SingleNode(value, preNode.next);
                 this.length++;
             }
         }
@@ -86,7 +87,7 @@ export class LinkedList {
         let currentNode = this.head;
         let currentIndex = 0;
 
-        while (currentIndex < index - 1 && currentNode) {
+        while (currentIndex < index && currentNode) {
             currentNode = currentNode.next;
             currentIndex++;
         }
@@ -102,18 +103,18 @@ export class LinkedList {
             this.head = this.head.next;
             this.length--;
         } else {
-            const lastNode = this.traverseToIndex(index - 1);
-            const unwantNode = lastNode.next;
+            const preNode = this.traverseToIndex(index - 1);
+            const unwantNode = preNode.next;
 
-            if (utils.isNotNull(lastNode, unwantNode)) {
-                lastNode.next = unwantNode.next;
+            if (utils.isNotNull(preNode, unwantNode)) {
+                preNode.next = unwantNode.next;
                 this.length--;
             }
         }
     }
 
     _isNotAvailableIndex(index: number) {
-        return index < 0 || index >= this.length;
+        return index < 0 || index > this.length;
     }
 
     // not really good one 
@@ -128,8 +129,8 @@ export class LinkedList {
 // class advice, create the Node class (better)
 class SingleNode {
     value: number;
-    next: any;
-    constructor(value: number, next: any) {
+    next: SingleNode | null;
+    constructor(value: number, next: SingleNode | null) {
         this.value = value;
         this.next = next;
     }
@@ -143,5 +144,5 @@ linkedList.print()
 linkedList.insert(2, 3)
 linkedList.print()
 
-linkedList.delete(-1)
+linkedList.delete(3)
 linkedList.print()
