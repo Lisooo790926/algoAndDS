@@ -1,12 +1,12 @@
 
 // make it easy to reuse
-var utils = function () {
+export class Utils {
 
-    function isNull(...args) {
+    isNull(...args) {
         return args.find(arg => arg === undefined || arg === null);
     }
 
-    function isNotNull(...args) {
+    isNotNull(...args) {
         return !this.isNull(args);
     }
 }

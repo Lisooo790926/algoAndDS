@@ -18,29 +18,32 @@
 //     }
 // }
 
+import { Utils } from './utils'
+
+var utils = new Utils();
+
 // my trial and modified by class LinkedList
-class LinkedList {
-    
-    head:SingleNode;
-    tail:SingleNode;
-    length:number;
-    constructor(value:number) {
-        // first node - head
+export class LinkedList {
+
+    head: SingleNode | null;
+    tail: SingleNode | null;
+    length: number;
+    constructor(value: number) {
+        // first node - head'
         this.head = new SingleNode(value, null);
         this.tail = this.head;
         this.length = 1;
     }
 
     // O(1) 
-    append(value:number) {
-        const newNode = new SingleNode(value, null)
-        this.tail.next = newNode;
+    append(value: number) {
+        const newNode = new SingleNode(value, this.tail)
         this.tail = newNode;
         this.length++;
     }
 
     // O(1) 
-    prepend(value:number) {
+    prepend(value: number) {
         this.head = new SingleNode(value, this.head);
         this.length++;
     }
@@ -57,7 +60,7 @@ class LinkedList {
     }
 
     // O(n)
-    insert(index:number, value:number) {
+    insert(index: number, value: number) {
 
         if (utils.isNull(index, value) || this._isNotAvailableIndex(index)) {
             return;
@@ -71,15 +74,15 @@ class LinkedList {
         } else {
             let currentNode = this.traverseToIndex(index)
 
-            if (utils.isNotNull(currentNode)) {
+            if (utils.isNotNull(currentNode, currentNode.next)) {
                 currentNode.next = new SingleNode(value, currentNode.next);
-                this.length ++;
+                this.length++;
             }
         }
     }
 
     // class advice can be extract the method to travseToIndex
-    traverseToIndex(index:number) {
+    traverseToIndex(index: number) {
         let currentNode = this.head;
         let currentIndex = 0;
 
@@ -87,34 +90,34 @@ class LinkedList {
             currentNode = currentNode.next;
             currentIndex++;
         }
-        
+
         return currentNode;
     }
 
     // O(n)
-    delete(index:number) {
-        if(utils.isNull(index) || this._isNotAvailableIndex(index)) {
+    delete(index: number) {
+        if (utils.isNull(index) || this._isNotAvailableIndex(index)) {
             return;
-        } else if(index === 0) {
+        } else if (index === 0) {
             this.head = this.head.next;
-            this.length --;
+            this.length--;
         } else {
-            const lastNode = this.traverseToIndex(index-1);
+            const lastNode = this.traverseToIndex(index - 1);
             const unwantNode = lastNode.next;
 
-            if(utils.isNotNull(lastNode, unwantNode)) {
+            if (utils.isNotNull(lastNode, unwantNode)) {
                 lastNode.next = unwantNode.next;
-                this.length --;
+                this.length--;
             }
         }
     }
 
-    _isNotAvailableIndex(index:number) {
+    _isNotAvailableIndex(index: number) {
         return index < 0 || index >= this.length;
     }
 
     // not really good one 
-    _createNewNode(value:number, next:object) {
+    _createNewNode(value: number, next: object) {
         return {
             value: value,
             next: next
@@ -124,9 +127,9 @@ class LinkedList {
 
 // class advice, create the Node class (better)
 class SingleNode {
-    value:number;
-    next:SingleNode;
-    constructor(value:number, next:SingleNode) {
+    value: number;
+    next: any;
+    constructor(value: number, next: any) {
         this.value = value;
         this.next = next;
     }
