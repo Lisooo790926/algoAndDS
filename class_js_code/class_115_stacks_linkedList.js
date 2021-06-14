@@ -50,6 +50,7 @@ class Stack {
         this.length--;
 
         console.log('pop', topNode === null ? null : topNode.value);
+        return topNode;
     }
 
     isEmpty() {
