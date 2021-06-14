@@ -113,6 +113,23 @@ export class LinkedList {
         }
     }
 
+    // class 105 pratice - my trial
+    // want to reverse the linklist , not only print
+    reverse() {
+        this.tail = this.head
+        let preNode = this.head
+        let currentNode = preNode.next;
+        preNode.next = null;
+
+        while (currentNode) {
+            let nextNode = currentNode.next;
+            currentNode.next = preNode;
+            preNode = currentNode;
+            currentNode = nextNode;
+        }
+        this.head = preNode;
+    }
+
     _isNotAvailableIndex(index: number) {
         return index < 0 || index > this.length;
     }
@@ -138,6 +155,10 @@ class SingleNode {
 
 let linkedList = new LinkedList(5);
 linkedList.append(6)
+linkedList.append(6)
+linkedList.append(6)
+linkedList.append(6)
+linkedList.append(6)
 linkedList.prepend(10)
 linkedList.print()
 
@@ -145,4 +166,7 @@ linkedList.insert(2, 3)
 linkedList.print()
 
 linkedList.delete(3)
+linkedList.print()
+
+linkedList.reverse()
 linkedList.print()

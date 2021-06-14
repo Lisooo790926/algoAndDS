@@ -116,6 +116,23 @@ class DoublyLinkedList {
         }
     }
 
+    // class 105 pratice - my trial
+    reverse() {
+        this.head = this.tail;
+        let currentNode = this.tail;
+        let headNode;
+
+        while(Utils.isNotNull(currentNode)) {
+            let prevNode = currentNode.past
+            currentNode.past = currentNode.next
+            currentNode.next = prevNode;
+            headNode = currentNode;
+            currentNode = prevNode;
+        }
+        
+        this.tail = headNode
+    }
+
     _isNotAvailableIndex(index) {
         return index < 0 || index > this.length;
     }
@@ -133,4 +150,7 @@ doublyLinkedList.insert(2, 3)
 doublyLinkedList.print()
 
 doublyLinkedList.delete(3)
+doublyLinkedList.print()
+
+doublyLinkedList.reverse()
 doublyLinkedList.print()
