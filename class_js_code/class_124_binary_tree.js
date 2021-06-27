@@ -14,25 +14,25 @@ class BinarySearchTree {
     }
 
     insert(value) {
-        if (!this.root) {
-            this.root = new Node(value);
+        // create one const instead of too much memory (like newNode)
+        const newNode = value !== null ? new Node(value) : null;
+        if (!newNode) {
+            return;
+        } else if (!this.root) {
+            this.root = newNode;
         } else {
             let currentNode = this.root;
-            while (currentNode) {
-                if (value > currentNode.value) {
-                    if (currentNode.right) {
+            while (currentNode !== null) {
+                if (value === currentNode.value) {
+                    return "already exist";
+                } else if (value > currentNode.value) {
+                    currentNode.right === null ?
+                        currentNode.right = newNode :
                         currentNode = currentNode.right;
-                    } else {
-                        currentNode.right = new Node(value);
-                        break;
-                    }
                 } else if (value < currentNode.value) {
-                    if (currentNode.left) {
+                    currentNode.left === null ?
+                        currentNode.left = newNode :
                         currentNode = currentNode.left;
-                    } else {
-                        currentNode.left = new Node(value);
-                        break;
-                    }
                 }
             }
         }
@@ -40,9 +40,12 @@ class BinarySearchTree {
 
     lookup(value) {
         let currentNode = this.root;
-        let currentValue = this.root.value;
-        
-        while (currentNode && currentValue) {
+        let currentValue;
+
+        while (currentNode !== null && currentNode !== undefined) {
+
+            currentValue = currentNode.value;
+
             if (value === currentValue) {
                 return currentNode;
             }
@@ -52,9 +55,6 @@ class BinarySearchTree {
             } else if (value < currentValue) {
                 currentNode = currentNode.left;
             }
-
-            currentValue = currentNode === null ? null :
-                currentNode.value;
         }
         return "not found"
     }
@@ -66,13 +66,14 @@ tree.insert(4)
 tree.insert(6)
 tree.insert(20)
 tree.insert(170);
+tree.insert(null)
 tree.insert(15);
 tree.insert(1);
 
 console.log(JSON.stringify(traverse(tree.root)))
 
 console.log(tree.lookup(170))
-console.log(tree.lookup(150))
+console.log(tree.lookup(20))
 
 //     9
 //  4     20

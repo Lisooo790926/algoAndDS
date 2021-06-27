@@ -3,10 +3,10 @@
 export class Utils {
 
     isNull(...args) {
-        return args.find(arg => arg === undefined || arg === null);
+        return !this.isNotNull(args);
     }
 
     isNotNull(...args) {
-        return !this.isNull(args);
+        return args.find(arg => arg !== undefined || arg !== null);
     }
 }
