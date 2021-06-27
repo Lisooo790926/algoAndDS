@@ -94,6 +94,7 @@ class BinarySearchTree {
         if (searchNodes.current) {
             const deletedNode = searchNodes.current;
 
+            // get the replacedNode
             if (deletedNode.right !== null && deletedNode.left !== null) {
                 // if two children, keep searching rightChild's left
                 replacedNode = this.lookupMostLeft(deletedNode.right, true);
@@ -103,22 +104,56 @@ class BinarySearchTree {
                 if (replacedNode !== deletedNode.left) {
                     replacedNode.left = deletedNode.left;
                 }
-
             } else if (deletedNode.right !== null || deletedNode.left !== null) {
                 // if leaf child, then replace it
                 let isRight = deletedNode.right !== null;
                 replacedNode = isRight ? deletedNode.right : deletedNode.left;
             }
 
+            // replace the replacedNode 
             if (replacedNode && searchNodes.last) {
                 // change last node pointer
                 value > searchNodes.last.value ? searchNodes.last.right = replacedNode : searchNodes.last.left = replacedNode;
-            } else if(replacedNode && searchNodes.last === undefined && deletedNode === this.root) {
+            } else if (replacedNode && searchNodes.last === undefined && deletedNode === this.root) {
                 // it's root node
                 this.root = replacedNode;
             }
         }
         return replacedNode !== null;
+    }
+
+    // not quite good solution
+    // class solution didn't reuse the lookup method 
+    remove_class(value) {
+        let currentNode = this.root;
+        let parentNode = null;
+        while (currentNode) {
+            if (value < currentNode.value) {
+                parentNode = currentNode;
+                currentNode = currentNode.left;
+            } else if (value > currentNode) {
+                parentNode = currentNode;
+                currentNode = currentNode.right;
+            } else if (value === currentNode.value) {
+                // Option 1 : no right node
+                if (currentNode.right === null) {
+                    // totally not good .....
+                    if (parentNode === null) {
+                        this.root = currentNode.left;
+                    } else {
+                        if (currentNode.value < parentNode.value) {
+                            parentNode.left = currentNode.left;
+                        } else if (currentNode.value > parentNode.value) {
+                            parentNode.right = currentNode.left;
+                        }
+                    }
+                } else if (currentNode.right === null) {
+                    // .....
+                } else {
+                    // .....
+                }
+            }
+        }
     }
 }
 
