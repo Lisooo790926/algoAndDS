@@ -94,7 +94,7 @@ class HashTable_class {
     set(key, value) {
         let address = this._hash(key);
         if (!this.data[address]) {
-            // this using array, is slow for insert and delete
+            // if using array, will be slow for inserting and deleting
             this.data[address] = []
         }
         // use the map object to save item
