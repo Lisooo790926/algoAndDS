@@ -1,10 +1,11 @@
+// my trial 
 function fibonacciIterative(n) {
     let numN1 = 0;
     let numN2 = 0;
     let numN3 = 0;
 
     for (let i = 0; i < n; i++) { //O(n)
-        if(i===0){
+        if (i === 0) {
             numN2 = 0;
             numN1 = 1;
         } else {
@@ -17,9 +18,20 @@ function fibonacciIterative(n) {
     return numN1;
 }
 
-function fibonacciRecursive(n) { // O(2n)
+// class better one
+function fibonacciIterative_class(n) {
 
-    if (n === 1 || n === 0) {
+    let ary = [0, 1];
+    for (let i = 2; i < n + 1; i++) {
+        ary.push(ary[i - 1] + ary[i - 2]);
+    }
+    return ary[n];
+}
+
+function fibonacciRecursive(n) { // O(2^n)
+
+    // better condition
+    if (n < 2) {
         return n;
     }
 
@@ -28,3 +40,4 @@ function fibonacciRecursive(n) { // O(2n)
 
 console.log(fibonacciRecursive(20));
 console.log(fibonacciIterative(20));
+console.log(fibonacciIterative_class(20));
