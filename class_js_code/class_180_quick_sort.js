@@ -46,6 +46,9 @@ function quickSort(array) {
   // combine this array with above element
 }
 
+// const answer = quickSort(numbers);
+// console.log(answer);
+
 function compareAndSwap(array, index, swapIndex, condition) {
   if (condition) {
     let pickValue = array[index];
@@ -56,5 +59,51 @@ function compareAndSwap(array, index, swapIndex, condition) {
   return false;
 }
 
-const answer = quickSort(numbers);
-console.log(answer);
+// class_solution better in space complexity
+// it didn't separate the array to sort, it just use the same array
+function quickSort_class(array, left, right) {
+  const len = array.length;
+  let pivot;
+  let partitionIndex;
+
+  if (left < right) {
+    pivot = right;
+
+    // this partition method is key
+    // to compare only one way 
+    // if larger than pivot move right, otherwise keep it!!!
+    partitionIndex = partition(array, pivot, left, right);
+
+    //sort left and right
+    quickSort_class(array, left, partitionIndex - 1);
+    quickSort_class(array, partitionIndex + 1, right);
+  }
+  return array;
+}
+
+function partition(array, pivot, left, right) {
+  let pivotValue = array[pivot];
+  console.log("current pivot value is " + pivotValue)
+  let partitionIndex = left;
+
+  for (let i = left; i < right; i++) {
+    if (array[i] < pivotValue) {
+      swap(array, i, partitionIndex);
+      partitionIndex++;
+    }
+    console.log(array)
+  }
+  swap(array, right, partitionIndex);
+  console.log(array)
+  return partitionIndex;
+}
+
+function swap(array, firstIndex, secondIndex) {
+  var temp = array[firstIndex];
+  array[firstIndex] = array[secondIndex];
+  array[secondIndex] = temp;
+}
+
+//Select first and last index as 2nd and 3rd parameters
+quickSort_class(numbers, 0, numbers.length - 1);
+console.log(numbers);
