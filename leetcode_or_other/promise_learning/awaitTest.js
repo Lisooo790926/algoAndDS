@@ -22,10 +22,30 @@ async function test2() {
 function wait2(ms) {
   return new Promise((resolve) => {
     console.log(ms + " test2 waitting");
-    // use resolve
+    // use resolve to let string pass to result
     setTimeout(() => resolve("hello world from resolve"), ms);
   });
 }
 
 // test1().then((result) => console.log(result));
 test2().then((result) => console.log(result));
+
+
+// This is totally wrong for async
+async function test3() {
+  console.log("test3 function ");
+  // this await has no function 
+  // because await is waitting for Promise object, not the normal string
+  let result = await wait3(2000); 
+  
+  // althought here will return Promise object, but no wait for 2 sec! 
+  return result;
+}
+
+function wait3(ms) {
+  // here will wait but not block orignal chain!!
+  setTimeout(() => console.log("hello world from resolve3"), ms);
+  return 'hello world'
+}
+
+test3().then((result) => console.log(result));
