@@ -63,25 +63,22 @@ class BinarySearchTree {
     }
 
     /**
-     * search for the most left side one
+     * search for the most left side for given right node
      * 
-     * @param {*} node for given node
-     * @param {*} isRemoveLastPointer for is cleaning lastNode pointer
-     * @returns the most left side node otherwise return null 
+     * @param {*} rightNode for given node
+     * @returns the most left side node in right node
      */
-    lookupMostLeft(node, isRemoveLastPointer) {
-        if (!node) {
+    lookupMostLeft(rightNode) {
+        if (!rightNode) {
             return null;
         }
 
-        let lastNode;
-        while (node) {
-            if (node.left === null) {
-                isRemoveLastPointer ? lastNode.left = null : null;
-                return node
-            }
-            lastNode = node;
-            node = node.left;
+        let lastNode = rightNode;
+        while (lastNode) {
+            if(lastNode.left === null){
+                return lastNode;
+            } 
+            lastNode = lastNode.left;
         }
     }
 
@@ -97,11 +94,15 @@ class BinarySearchTree {
             // get the replacedNode
             if (deletedNode.right !== null && deletedNode.left !== null) {
                 // if two children, keep searching rightChild's left
-                replacedNode = this.lookupMostLeft(deletedNode.right, true);
-                replacedNode.right = deletedNode.right;
+                // we only need to search the nearest element, no matter left side or right side
+                replacedNode = this.lookupMostLeft(deletedNode.right);
+                console.log(replacedNode)
+                if (replacedNode && replacedNode !== deletedNode.right) {
+                    replacedNode.right = deletedNode.right;
+                }
 
                 // if the replacedNode is not the same left, point to the left
-                if (replacedNode !== deletedNode.left) {
+                if (replacedNode) {
                     replacedNode.left = deletedNode.left;
                 }
             } else if (deletedNode.right !== null || deletedNode.left !== null) {
@@ -125,6 +126,10 @@ class BinarySearchTree {
     // not quite good solution
     // class solution didn't reuse the lookup method 
     remove_class(value) {
+        if(!this.root){
+            return false;
+        }
+
         let currentNode = this.root;
         let parentNode = null;
         while (currentNode) {
@@ -137,17 +142,18 @@ class BinarySearchTree {
             } else if (value === currentNode.value) {
                 // Option 1 : no right node
                 if (currentNode.right === null) {
-                    // totally not good .....
+                    // identify is root node
                     if (parentNode === null) {
                         this.root = currentNode.left;
                     } else {
+
                         if (currentNode.value < parentNode.value) {
                             parentNode.left = currentNode.left;
                         } else if (currentNode.value > parentNode.value) {
                             parentNode.right = currentNode.left;
                         }
                     }
-                } else if (currentNode.right === null) {
+                } else if (currentNode.right.left === null) {
                     // .....
                 } else {
                     // .....
@@ -162,14 +168,14 @@ tree.insert(9)
 tree.insert(4)
 tree.insert(6)
 tree.insert(20)
-tree.insert(170);
+tree.insert(21);
 tree.insert(null)
 tree.insert(15);
 tree.insert(1);
 
 console.log(JSON.stringify(traverse(tree.root)))
 
-console.log(tree.lookup(170))
+console.log(tree.lookup(21))
 console.log(tree.lookup(20))
 
 //     9
@@ -182,7 +188,7 @@ tree.insert(16);
 tree.insert(19);
 tree.insert(14);
 
-console.log(tree.remove(15));
+console.log(tree.remove(20));
 console.log(JSON.stringify(traverse(tree.root)))
 
 // recursive method to get whole tree for checking
