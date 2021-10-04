@@ -162,28 +162,31 @@ class BinarySearchTree {
         }
     }
 
-
+    // my trial
+    // space use O(n)
     depthFirstSearch(){
         let currentNode = this.root;
         let result = []; // record result list
-        let queue = []; // record parent node
+        let stack = []; // record parent node
 
         while(currentNode) {
             result.push(currentNode.value);
 
             if(currentNode.right){
-                queue.push(currentNode.right);
+                stack.push(currentNode.right);
             }
             if(currentNode.left) {
-                queue.push(currentNode.left);
+                stack.push(currentNode.left);
             }
 
-            // get the final one 
-            currentNode = queue.pop();
+            // get the final one, stack popup
+            currentNode = stack.pop();
         }
         return result;
     }
 
+    // my trial
+    // space use O(n)
     breadthFirstSearch(){
         let currentNode = this.root;
         let result = []; // record result list
@@ -201,10 +204,30 @@ class BinarySearchTree {
             }
 
             // get the first one (queue popup)
-            currentNode = queue.splice(0, 1)[0]
+            currentNode = queue.shift()
             
         }
         return result;
+    }
+
+    breadthFirstSearch_recursive(queue, list){
+        if(!queue.length){
+            return list;
+        }
+        let currentNode = queue.shift();
+        
+        if(currentNode) {
+            if(currentNode.left) {
+                queue.push(currentNode.left);
+            }
+            if(currentNode.right){
+                queue.push(currentNode.right);
+            }
+    
+            list.push(currentNode.value);
+        }
+
+        return this.breadthFirstSearch_recursive(queue, list);
     }
 
 }
@@ -234,6 +257,7 @@ tree.insert(16);
 tree.insert(19);
 
 console.log("BFS", tree.breadthFirstSearch())
+console.log("BFS_recursive", tree.breadthFirstSearch_recursive([tree.root], []))
 console.log("DFS", tree.depthFirstSearch())
 
 console.log(tree.remove(20));
