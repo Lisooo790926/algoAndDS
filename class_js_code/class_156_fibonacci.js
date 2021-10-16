@@ -28,16 +28,36 @@ function fibonacciIterative_class(n) {
     return ary[n];
 }
 
-function fibonacciRecursive(n) { // O(2^n)
+// O(2^n)
+function fibonacciRecursive() {
 
-    // better condition
+  // inner times calculation
+  var times = 0;
+
+  // create private method
+  function _calculate(n) {
+    times++  
     if (n < 2) {
-        return n;
+      return n;
     }
+    return _calculate(n - 2) + _calculate(n - 1);
+  }
 
-    return fibonacciRecursive(n - 2) + fibonacciRecursive(n - 1)
+  // create the closure!
+  return {
+    calculate : (n) => {
+        return _calculate(n);
+    },
+    
+    displayTimes: () => {
+      console.log('time is ', times);
+    },
+  };
 }
 
-console.log(fibonacciRecursive(20));
 console.log(fibonacciIterative(20));
 console.log(fibonacciIterative_class(20));
+
+var fibonacciRecursive = fibonacciRecursive();
+console.log(fibonacciRecursive.calculate(20));
+fibonacciRecursive.displayTimes()
