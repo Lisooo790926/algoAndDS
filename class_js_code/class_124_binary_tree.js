@@ -9,8 +9,9 @@ class Node {
 
 // my trial for building the binary tree
 class BinarySearchTree {
-    constructor() {
-        this.root = null;
+
+    constructor(root) {
+        this.root = root;
     }
 
     insert(value) {
@@ -163,7 +164,7 @@ class BinarySearchTree {
     }
 
     // my trial
-    // space use O(n)
+    // space use O(n)/ preOrder 
     depthFirstSearch(){
         let currentNode = this.root;
         let result = []; // record result list
@@ -183,6 +184,18 @@ class BinarySearchTree {
             currentNode = stack.pop();
         }
         return result;
+    }
+
+    depthFirstSearch_inOrder_class(){
+        return traverseInOrder(this.root, []);
+    }
+
+    depthFirstSearch_preOrder_class(){
+        return traversePreOrder(this.root, []);
+    }
+
+    depthFirstSearch_postOrder_class(){
+        return traversePostOrder(this.root, []);
     }
 
     // my trial
@@ -230,6 +243,87 @@ class BinarySearchTree {
         return this.breadthFirstSearch_recursive(queue, list);
     }
 
+    validateBST(){
+        // rule is parent < right && parent > left
+        let currentNode = this.root;
+        let queue = [];
+        let result = true;
+
+        while(currentNode) {
+
+            if(currentNode.left) {
+                result = result && currentNode.left.value < currentNode.value;
+                queue.push(currentNode.left);
+            }
+
+            if(currentNode.right){
+                result = result && currentNode.right.value > currentNode.value;
+                queue.push(currentNode.right);
+            }
+
+            // get the first one (queue popup)
+            currentNode = queue.shift()
+            
+        }
+        return result;
+    }
+
+}
+
+// this method is awesome!!!!!!
+function traverseInOrder(node, list) {
+    
+    // find the left first
+    if(node.left) {
+        traverseInOrder(node.left, list)
+    }
+
+    // push the value into list
+    list.push(node.value);
+
+    // check right  
+    if(node.right) {
+        traverseInOrder(node.right, list)
+    }
+
+    return list;
+}
+
+function traversePreOrder(node, list){
+    
+    // push the value into list first
+    list.push(node.value);
+    
+    // find the left first
+    if(node.left) {
+        traversePreOrder(node.left, list)
+    }
+
+    // check right  
+    if(node.right) {
+        traversePreOrder(node.right, list)
+    }
+
+    return list;
+}
+
+function traversePostOrder(node, list){
+    
+    console.log(node.value)
+    // find the left first
+    if(node.left) {
+        traversePostOrder(node.left, list)
+    }
+
+    // check right  
+    if(node.right) {
+        traversePostOrder(node.right, list)
+    }
+
+    // push the value into list
+    list.push(node.value);
+
+    return list;
 }
 
 const tree = new BinarySearchTree();
@@ -237,14 +331,14 @@ tree.insert(9)
 tree.insert(4)
 tree.insert(6)
 tree.insert(20)
-tree.insert(21);
+tree.insert(170);
 tree.insert(null)
 tree.insert(15);
 tree.insert(1);
 
 console.log(JSON.stringify(traverse(tree.root)))
 
-console.log(tree.lookup(21))
+console.log(tree.lookup(170))
 console.log(tree.lookup(20))
 
 //     9
@@ -259,6 +353,16 @@ tree.insert(19);
 console.log("BFS", tree.breadthFirstSearch())
 console.log("BFS_recursive", tree.breadthFirstSearch_recursive([tree.root], []))
 console.log("DFS", tree.depthFirstSearch())
+console.log("DFS_class_inOrder", tree.depthFirstSearch_inOrder_class())
+console.log("DFS_class_preOrder", tree.depthFirstSearch_preOrder_class())
+console.log("DFS_class_postOrder", tree.depthFirstSearch_postOrder_class())
+
+// create invalid BST 
+let inValidNode = new Node(15)
+inValidNode.left = new Node(20)
+let inValidBST = new BinarySearchTree(inValidNode)
+
+console.log("validateBST result ", tree.validateBST())
 
 console.log(tree.remove(20));
 console.log(JSON.stringify(traverse(tree.root)))
