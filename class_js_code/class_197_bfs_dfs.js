@@ -7,7 +7,7 @@ BFS
 DFS  
 // DFS will take long, because tree is so deep
 // take so long to finish one branch (we are using recursive)
--> BFS
+BFS
 
 //If the tree is very wide:
 DFS 

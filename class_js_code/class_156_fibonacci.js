@@ -55,9 +55,20 @@ function fibonacciRecursive() {
   };
 }
 
+// bottom up 
+function fibonacci_class_2(n){
+    let answer = [0, 1]
+    for (let i=2 ;i<=n; i++) {
+        answer.push(answer[i-2], answer[i-1])
+    }
+    return answer.pop();
+}
+
 console.log(fibonacciIterative(20));
 console.log(fibonacciIterative_class(20));
 
 var fibonacciRecursive = fibonacciRecursive();
 console.log(fibonacciRecursive.calculate(20));
 fibonacciRecursive.displayTimes()
+
+console.log(fibonacci_class_2(20))
