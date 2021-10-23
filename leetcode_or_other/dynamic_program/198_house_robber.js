@@ -34,6 +34,7 @@ var rob_leetcode_recursive = function (nums) {
   return inner_rob_recursive(nums, currentIndex);
 };
 
+// start from zero 
 function inner_rob_recursive(nums, currentIndex) {
   calculate++;
   if (currentIndex > nums.length - 1) {
@@ -53,9 +54,26 @@ function inner_rob_recursive(nums, currentIndex) {
   return cache[currentIndex];
 };
 
-var nums = [0, 0, 0, 0, 0, 0];
+var mem = {};
+function rob (nums) {
+  const len = nums.length
+  if(len <= 0) {
+    return 0;
+  } else if (len == 1) {
+    return nums[0]
+  }
+
+  if(!(len in mem)) {
+    mem[len] = Math.max(rob(nums.slice(0, len-1)), rob(nums.slice(0, len-2)) + nums[len-1])
+  }
+  return mem[len]; 
+}
+
+
+var nums = [0, 0, 0, 0, 0, 1];
 
 console.log(rob_leetcode(nums));
 console.log(rob_leetcode_recursive(nums));
+console.log(rob(nums));
 console.log(calculate);
 console.log(cache);
