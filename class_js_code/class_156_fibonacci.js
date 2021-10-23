@@ -29,46 +29,19 @@ function fibonacciIterative_class(n) {
 }
 
 // O(2^n)
-function fibonacciRecursive() {
-
-  // inner times calculation
-  var times = 0;
-
-  // create private method
-  function _calculate(n) {
-    times++  
-    if (n < 2) {
-      return n;
-    }
-    return _calculate(n - 2) + _calculate(n - 1);
+var times = 0;
+function fibonacciRecursive(n) {
+  times++  
+  if (n < 2) {
+    return n;
   }
-
-  // create the closure!
-  return {
-    calculate : (n) => {
-        return _calculate(n);
-    },
-    
-    displayTimes: () => {
-      console.log('time is ', times);
-    },
-  };
-}
-
-// bottom up 
-function fibonacci_class_2(n){
-    let answer = [0, 1]
-    for (let i=2 ;i<=n; i++) {
-        answer.push(answer[i-2], answer[i-1])
-    }
-    return answer.pop();
+  return fibonacciRecursive(n - 2) + fibonacciRecursive(n - 1);
 }
 
 console.log(fibonacciIterative(20));
 console.log(fibonacciIterative_class(20));
 
-var fibonacciRecursive = fibonacciRecursive();
-console.log(fibonacciRecursive.calculate(20));
-fibonacciRecursive.displayTimes()
-
-console.log(fibonacci_class_2(20))
+console.log(fibonacciRecursive(20));
+// check the time, so fucking large
+// DO many replicate thing
+console.log(times)

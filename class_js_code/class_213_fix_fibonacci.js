@@ -1,69 +1,37 @@
 // change to implement the cache system for fibnacci
-function fibonacciRecursive_origin() {
-  var times = 0;
-  function _calculate(n) {
-    times++;
-    if (n < 2) {
-      return n;
-    }
-    return _calculate(n - 1) + _calculate(n - 2);
+var times = 0;
+function fibonacciRecursive_origin(n) {
+  // times++;
+  if (n < 2) {
+    return n;
   }
-
-  return {
-    calculate: (n) => {
-      console.log(_calculate(n));
-    },
-    displayTimes: () => {
-      console.log("use time is", times);
-    },
-  };
+  return fibonacciRecursive_origin(n - 1) + fibonacciRecursive_origin(n - 2);
 }
 
 // my trial
 // top down
-function fibonacciRecursive() {
+var cache = {};
+function fibonacciRecursive(n) {
   // inner times calculation
-  var cache = {};
-  var times = 0;
-
-  // create private method
-  function _calculate(n) {
-    times++;
-    if (n < 2) {
-      cache[n] = n;
-    }
-
-    if (!(n in cache)) {
-      cache[n] = _calculate(n - 2) + _calculate(n - 1);
-    }
-
-    return cache[n];
+  times++;
+  if (n < 2) {
+    cache[n] = n;
   }
 
-  // create the closure!
-  return {
-    calculate: (n) => {
-      console.log(_calculate(n));
-    },
-    displayCache: () => {
-      console.log(cache);
-    },
-    displayTimes: () => {
-      console.log("use time is", times);
-    },
-  };
+  if (!(n in cache)) {
+    cache[n] = fibonacciRecursive(n - 2) + fibonacciRecursive(n - 1);
+  }
+
+  return cache[n];
 }
 
-var fibonacciRecursive_origin = fibonacciRecursive_origin();
-fibonacciRecursive_origin.calculate(20);
-fibonacciRecursive_origin.displayTimes();
+console.log(fibonacciRecursive_origin(20));
+console.log(times); // 21895
 
-var fibonacciRecursive = fibonacciRecursive();
-fibonacciRecursive.calculate(20);
-// fibonacciRecursive.displayCache();
-fibonacciRecursive.displayTimes();
+console.log(fibonacciRecursive(20));
+console.log(times); // 39 
 
-// top down + memo 
+// top down + memo
 function fibonacci_class_1(n) {
   let cache = {};
   return function fib(n) {
