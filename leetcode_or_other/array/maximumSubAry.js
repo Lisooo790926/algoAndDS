@@ -3,7 +3,7 @@
  * @return {number}
  */
 
-// time O(n) && space O()
+// time O(n) && space O(1)
 var maxSubArray = function (nums) {
 
     if (!nums) return null
