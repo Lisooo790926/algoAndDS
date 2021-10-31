@@ -48,8 +48,22 @@ var searchInsert = function(nums, target) {
     return lo;
 };
 
+var searchInsert_recursive = function(nums, target, right, left) {
+    
+    if(right >= left) {
+        return nums[left] == target ? left : (nums[left] < target ? left + 1 : 0) 
+    }
+    let mid = Math.floor((left+right) / 2);
+    if (target > nums[mid]) {
+        return searchInsert_recursive(nums, target, mid+1, left);
+    } else {
+        return searchInsert_recursive(nums, target, right, mid);
+    }
+};
+
 
 let nums = [1,3,5,6, 8]
-let target = 5
+let target = 9
 
 console.log(searchInsert(nums, target))
+console.log(searchInsert_recursive(nums, target, 0, 4))
