@@ -25,3 +25,14 @@ var hammingDistance = function (x, y) {
 };
 
 console.log(hammingDistance(1, 4));
+
+
+/*
+public class Solution {
+    public int hammingDistance(int x, int y) {
+        return Integer.bitCount(x ^ y);
+    }
+}
+
+java use XOR to fix this issue quickly
+*/
