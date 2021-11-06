@@ -36,21 +36,13 @@ function merge(left, right) {
     return left;
   }
 
-  // splice can get first one, like queue, while loop to pop every first item
-  while (right[0] && left[0]) {
-    // console.log("value right " + right[0] + " value left " + left[0]);
+  // splice can get first one, like queue, while loop to dequeue every first item
+  while (right[0] || left[0]) {
 
     // if the left is smaller than right, put left first into array
     result.push(
-      left[0] <= right[0] ? left.splice(0, 1)[0] : right.splice(0, 1)[0]
+      left[0] <= right[0] || !right[0] ? left.shift() : right.shift()
     );
-  }
-
-  // if there is left item, then concat it into result
-  if (right.length > 0) {
-    result = result.concat(right);
-  } else if (left.length > 0) {
-    result = result.concat(left);
   }
 
   console.log("result " + result)

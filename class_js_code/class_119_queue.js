@@ -1,5 +1,5 @@
 
-// linkedList based - Stack
+// linkedList based - Queue
 class Node {
     constructor(value, next) {
         this.value = value;

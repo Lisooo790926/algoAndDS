@@ -74,13 +74,10 @@ class BinarySearchTree {
             return null;
         }
 
-        let lastNode = rightNode;
-        while (lastNode) {
-            if(lastNode.left === null){
-                return lastNode;
-            } 
-            lastNode = lastNode.left;
+        while (rightNode.left) {
+            rightNode = rightNode.left;
         }
+        return rightNode;
     }
 
     // my trial, search for the closest one and replace it
