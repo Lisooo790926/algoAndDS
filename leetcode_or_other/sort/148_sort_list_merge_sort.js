@@ -34,58 +34,22 @@ var sortList = function (head) {
 
 function merge(leftNode, rightNode) {
 
-    if (leftNode == rightNode) {
-        return leftNode;
-    }
+    let dummy = new ListNode()
+    let root = dummy;
 
-    let currentVal;
-    let currentNode;
-    let head;
-
-
-    // take each node element one by one, and compare 
     while (leftNode || rightNode) {
 
-        if (!rightNode || (rightNode && leftNode && leftNode.val <= rightNode.val)) {
-            currentVal = leftNode.val;
+        if (!rightNode || (leftNode && leftNode.val <= rightNode.val)) {
+            root.next = leftNode;
             leftNode = leftNode.next;
-        } else if (!leftNode || rightNode.val < leftNode.val) {
-            currentVal = rightNode.val;
+        } else {
+            root.next = rightNode;
             rightNode = rightNode.next;
         }
-
-        let tempNode = new ListNode(currentVal, null);
-        if (currentNode) {
-            currentNode.next = tempNode;
-            currentNode = currentNode.next;
-        } else {
-            currentNode = tempNode;
-            head = tempNode;
-        }
+        root = root.next
     }
 
-    return head;
-}
-
-function getNodeByIndex(head, index) {
-
-    let node = head;
-    while (index > 0) {
-        node = node.next;
-        index--
-    }
-    return node;
-}
-
-function getEndIndex(head) {
-
-    let endIndex = -1;
-    while (head) {
-        endIndex++
-        head = head.next
-    }
-
-    return endIndex;
+    return dummy.next;
 }
 
 // ====================== GOD solution in merge ===============================
