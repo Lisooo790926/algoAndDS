@@ -31,7 +31,7 @@ var reverseBetween = function (head, left, right) {
     let then = start.next;
 
     // swap the start and then each loop
-    for (let j = left; j < right - left; j++) {
+    for (let j = left; j < right; j++) {
         start.next = then.next;
         then.next = start;
         then = start.next;
@@ -40,3 +40,5 @@ var reverseBetween = function (head, left, right) {
     // use dummy next to get head, instead of using head
     return dummy.next;
 }
+
+//recursive, not quite smart, cut linklist to sort

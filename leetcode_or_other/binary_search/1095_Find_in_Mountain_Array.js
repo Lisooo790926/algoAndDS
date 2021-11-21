@@ -24,7 +24,6 @@
     
     const len = mountainArr.length();
     
-    let current = mountainArr.get(0);
     let lo = 0;
     let hi = len - 1;
     

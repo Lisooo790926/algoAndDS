@@ -19,8 +19,10 @@ var oddEvenList = function(head) {
     let even = odd.next;
     let evenHead = even;
     
+    // use even to check remember!
     while (even && even.next) {
-            
+           
+        // move odd first then even
         odd.next = odd.next.next;
         even.next = even.next.next;
         odd = odd.next;
@@ -28,6 +30,7 @@ var oddEvenList = function(head) {
         
     }
     
+    // why odd will not be null, because odd is always behind even
     odd.next = evenHead;
     
     return head;
