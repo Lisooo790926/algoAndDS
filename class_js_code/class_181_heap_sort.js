@@ -9,9 +9,9 @@ function max_heapify(index, array, endIndex) {
   const right = 2 * index + 2
   let largeIndex;
 
-  if (endIndex > left && array[left] > parent && array[left] >= array[right]) {
+  if (endIndex >= left && array[left] > parent && array[left] >= array[right]) {
     largeIndex = left;
-  } else if (endIndex > right && array[right] > parent && array[right] > array[left]) {
+  } else if (endIndex >= right && array[right] > parent && array[right] > array[left]) {
     largeIndex = right;
   }
 
