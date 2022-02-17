@@ -54,13 +54,14 @@ class RandomizedSet {
             // swap the final index to here (this is so smart)
             // we could always remove end index
             if(index < list.size() - 1) {
-                int endVal = map.get(list.size()-1);
+                int endVal = list.get(list.size()-1);
                 list.set(index, endVal);
                 map.put(endVal, index);
             }
 
             map.remove(val);
             list.remove(list.size()-1);
+            return true;
         }
         return false;
     }

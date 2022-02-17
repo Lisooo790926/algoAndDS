@@ -39,6 +39,7 @@ class Solution {
 
 
 // solution 2, change to use list instead of heap
+// bucket sort
 // this use O(n^2) because addAll in the end 
 class Solution {
     

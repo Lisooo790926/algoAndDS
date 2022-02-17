@@ -1,5 +1,6 @@
 class Obserable{
 
+    // there is observers list in Observable object
     constructor(){
         this.observers = [];
     }

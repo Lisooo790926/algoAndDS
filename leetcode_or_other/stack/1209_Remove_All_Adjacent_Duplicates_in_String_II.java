@@ -48,8 +48,8 @@ class Solution {
 // other solution with two stack
 class Solution {
     
-    private Dequeue<Integer> countStack = new ArrayDequeue<>();
-    private Dequeue<Character> charStack = new ArrayDequeue<>();
+    private Deque<Integer> countStack = new ArrayDeque<>();
+    private Deque<Character> charStack = new ArrayDeque<>();
     
     public String removeDuplicates(String s, int k) {
     

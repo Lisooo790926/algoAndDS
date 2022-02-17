@@ -1,4 +1,4 @@
-// my trial 
+// my trial for traditional way
 var MinStack = function() {
     this.stack = [];
     this.min = null;
